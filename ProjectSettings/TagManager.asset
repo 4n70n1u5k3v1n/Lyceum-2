@@ -13,7 +13,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Clue
   - 
   - 
   - 
@@ -49,6 +49,9 @@ TagManager:
   - name: Floor2
     uniqueID: 2669675737
     locked: 0
+  - name: Clue
+    uniqueID: 3569572407
+    locked: 0
   - name: WalkInfront
     uniqueID: 2277474911
     locked: 0
@@ -58,12 +61,12 @@ TagManager:
   - name: Decor
     uniqueID: 3454512345
     locked: 0
-  - name: UI
-    uniqueID: 3929895079
-    locked: 0
   - name: Player
     uniqueID: 541114315
     locked: 0
   - name: WalkBehind
     uniqueID: 3264420507
+    locked: 0
+  - name: UI
+    uniqueID: 3929895079
     locked: 0

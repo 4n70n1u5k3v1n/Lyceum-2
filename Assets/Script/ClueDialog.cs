@@ -2,42 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ClueDialog : MonoBehaviour
 {
     Transform clue;
     GameObject interactButton;
-    [SerializeField] private GameObject dialog;
     private TextMeshProUGUI dialogText;
     private float typingSpeed = 0.05f;
     private Coroutine typingCoroutine;
-    private string dialogLine;
-
+    private Dictionary<string, string> dialogLines;
+    [SerializeField] private GameObject dialog;
+    [SerializeField] private Image characterPortrait;
+    private const string characterPortraitPath = "CharacterPortrait/";
 
     public void Start()
     {
         clue = gameObject.transform;
         name = gameObject.name;
-        dialogLine = "";
-    }
-    public void Interact()
-    {
-        if (clue != null)
-        {
-            foreach (Transform child in clue)
-            {
-                Debug.Log("Child name: " + child.name);
-                if (child.name.Equals("Button"))
-                {
-                    interactButton = child.gameObject;
-                    interactButton.SetActive(true);
-                    break;
-                }
-            }
-        }
+        dialogLines = null;
     }
 
-    public void InteractClue()
+    public void Interact()
     {
         if (clue != null)
         {
@@ -50,7 +36,7 @@ public class ClueDialog : MonoBehaviour
                 {
                     dialogText = child.gameObject.GetComponent<TextMeshProUGUI>();
                     // Example dialog text
-                    dialogLine = DialogRepository.GetDialog(clue.name, "");
+                    dialogLines = DialogRepository.GetDialog(clue.name);
 
                     // stop previous typing if still running
                     if (typingCoroutine != null)
@@ -58,7 +44,10 @@ public class ClueDialog : MonoBehaviour
                         StopCoroutine(typingCoroutine);
                     }
 
-                    typingCoroutine = StartCoroutine(TypeText(dialogLine));
+                    if (dialogLines != null)
+                    {
+                        typingCoroutine = StartCoroutine(TypeText(dialogLines));
+                    }
                     break;
                 }
             }
@@ -84,13 +73,18 @@ public class ClueDialog : MonoBehaviour
         }
     }
 
-    private IEnumerator TypeText(string fullText)
+    private IEnumerator TypeText(Dictionary<string, string> fullText)
     {
-        dialogText.text = "";
-        foreach (char c in fullText)
+        foreach (KeyValuePair<string, string> entry in dialogLines)
         {
-            dialogText.text += c;
-            yield return new WaitForSeconds(typingSpeed);
+            string line = entry.Value;
+            dialogText.text = "";
+            foreach (char c in line)
+            {
+                dialogText.text += c;
+                yield return new WaitForSeconds(typingSpeed);
+            }
+            yield return new WaitForSeconds(1);
         }
     }
 }

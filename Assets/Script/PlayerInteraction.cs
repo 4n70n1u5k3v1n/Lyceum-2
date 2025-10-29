@@ -1,52 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
+using Fungus;
 using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
-
 {
+    private Collider2D collidedObject;
+    [SerializeField] private GameObject talkButton;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("NPC"))
+        if (collision.gameObject.CompareTag("NPC") || collision.gameObject.CompareTag("Clue"))
         {
-            Debug.Log("talk to npc");
-            if (collision.GetComponent<NPCDialog>() != null)
+            if (talkButton != null)
             {
-                collision.GetComponent<NPCDialog>().Talk();
+                talkButton.SetActive(true);
             }
         }
-        else if (collision.gameObject.CompareTag("Clue"))
-        {
-            Debug.Log("interact with clue");
-            if (collision != null)
-            {
-                if (collision.GetComponent<ClueDialog>() != null)
-                {
-                    collision.GetComponent<ClueDialog>().Interact();
-                }
-            }
-        }
+        collidedObject = collision;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("NPC"))
+        if (collision.gameObject.CompareTag("NPC") || collision.gameObject.CompareTag("Clue"))
         {
             Debug.Log("dont talk with npc");
-            if (collision.GetComponent<NPCDialog>() != null)
+            if (talkButton != null)
             {
-                collision.GetComponent<NPCDialog>().EndDialog();
+                talkButton.SetActive(false);
+
+                if (collision.GetComponent<InteractionDialog>() != null)
+                {
+                    collision.GetComponent<InteractionDialog>().EndDialog();
+                }
             }
         }
-        else if (collision.gameObject.CompareTag("Clue"))
+            collidedObject = null;
+    }
+
+    public void OnInteract()
+    {
+        if (collidedObject.CompareTag("NPC") || collidedObject.CompareTag("Clue"))
         {
-            Debug.Log("interact with clue");
-            if (collision != null)
+            if (collidedObject.GetComponent<InteractionDialog>() != null)
             {
-                if (collision.GetComponent<ClueDialog>() != null)
-                {
-                    collision.GetComponent<ClueDialog>().EndClue();
-                }
+                collidedObject.GetComponent<InteractionDialog>().Interact();
             }
         }
     }
