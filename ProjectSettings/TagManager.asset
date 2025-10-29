@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - NPC
+  - Clue
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Floor
+    uniqueID: 845496181
+    locked: 0
+  - name: Floor2
+    uniqueID: 2669675737
+    locked: 0
+  - name: WalkInfront
+    uniqueID: 2277474911
+    locked: 0
+  - name: Collision
+    uniqueID: 2319808839
+    locked: 0
+  - name: Decor
+    uniqueID: 3454512345
+    locked: 0
+  - name: UI
+    uniqueID: 3929895079
+    locked: 0
+  - name: Player
+    uniqueID: 541114315
+    locked: 0
+  - name: WalkBehind
+    uniqueID: 3264420507
+    locked: 0
